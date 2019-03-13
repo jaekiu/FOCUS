@@ -11,6 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.google.android.gms.location.GeofencingClient;
+import com.google.android.gms.location.LocationServices;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private SearchAdapter _adapter;
 
     private ArrayList<Location> _locations;
+    private GeofencingClient _geofencingClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         _rView.setLayoutManager(layoutManager);
 
+        // Geofencing
+        _geofencingClient = LocationServices.getGeofencingClient(this);
 
         // Sets up toolbar.
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
