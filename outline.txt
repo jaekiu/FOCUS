@@ -1,0 +1,24 @@
+1) Based on the outline/introduction of this project, what should be the first thing I will see once I open up the application?
+When you first open the application, you should see a screen where you can search for locations that you want to designate as FOCUS locations. 
+
+2) How can I search for, choose a set of designated locations, and display the result on the screen as a scrollable list?
+You should create an Activity that performs the searches based on a query string and filters results based on them. As the user is typing, you can use the Google Native Android SDK for Places, specifically the Place Autocomplete Widget, to gather a list of predicted places to choose from. After filtering through the locations, the user should be able to select a location to be added to their FOCUS locations, meaning that some type of listener should be implemented (such as a tap gesture or a click). This Search Activity should use a ListView to display the results, which also requires implementing an Adapter. If there are a lot of locations (which there probably are), using a RecyclerView will help you reuse space and memory by only displaying a limited number of items until refreshed. 
+
+3) How can I turn my phone into silent mode?
+audio.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+* If you want to use vibrate mode:
+1. Add <uses-permission android:name="android.permission.VIBRATE" /> to manifest file. 
+2. AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+
+4) How can I detect my current location?
+https://stackoverflow.com/questions/38242917/how-can-i-get-the-current-location-android-studio
+You can use Google API Client to get the current location. You start off by creating a connection to get the location. Then, you can retrieve the latitude and longitude of the location, which is used to figure out where the user is exactly. 
+
+5) List out all the classes and briefly describe what their intended functionalities/roles are.
+Utils - contains relevant/general methods that can be used across multiple classes
+MainActivity - the Search Activity that allows you to search based on location
+SearchAdapter - Adapter for the ListView that will be used to display filtered search results from MainActivity
+SearchViewHolder - inner-class in SearchAdapter that handles the UI for each item in the ListView
+Location - represents a FOCUS location; also handles Geofencing
+
