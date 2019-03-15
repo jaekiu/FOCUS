@@ -1,5 +1,6 @@
 package com.jackie.focus;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.media.AudioManager;
 import android.support.constraint.ConstraintLayout;
@@ -36,5 +37,22 @@ public class Utils {
             // Displays the items.
             _hasItemsLayout.bringToFront();
         }
+    }
+
+    /** Creates a new map of values for Locations SQL Database.
+     * @param placeid: ID of place.
+     * @param name: Name of location.
+     * @param address: Address of location.
+     * @param lat: Latitude of location.
+     * @param lon: Longitude of location.
+     * @return: Returns one entry of the SQL Database. */
+    public static ContentValues insertEntries(String placeid, String name, String address, double lat, double lon) {
+        ContentValues values = new ContentValues();
+        values.put(LocationsDatabase.LocationEntry.COLUMN_PLACE_ID, placeid);
+        values.put(LocationsDatabase.LocationEntry.COLUMN_NAME, name);
+        values.put(LocationsDatabase.LocationEntry.COLUMN_ADDRESS, address);
+        values.put(LocationsDatabase.LocationEntry.COLUMN_LAT, Double.toString(lat));
+        values.put(LocationsDatabase.LocationEntry.COLUMN_LONG, Double.toString(lon));
+        return values;
     }
 }

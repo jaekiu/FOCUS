@@ -1,16 +1,23 @@
 package com.jackie.focus;
 
 public class Location {
+    private String _id;
     private String _name;
     private String _address;
     private double _lat;
     private double _long;
 
-    public Location(String name, String address, double lat, double lon) {
+    public Location(String id, String name, String address, double lat, double lon) {
+        _id = id;
         _name = name;
         _address = address;
         _lat = lat;
         _long = lon;
+    }
+
+    /** Returns the name of the location. */
+    public String getID() {
+        return _id;
     }
 
     /** Returns the name of the location. */
