@@ -112,10 +112,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     /** Handles removing a purchase at POSITION.
      * Removes it from the SQL Database and the RecyclerView. */
     public void removeItem(int position) {
-        Location p = _locations.get(position);
+        Location l = _locations.get(position);
         _locations.remove(position);
-        String whereClause = "_id=?";
-        String[] whereArg = new String[] {String.valueOf(p.getID())};
+        String whereClause = "placeid=?";
+        String[] whereArg = new String[] {String.valueOf(l.getID())};
         _db.delete(LocationsDatabase.LocationEntry.TABLE_NAME, whereClause, whereArg);
         // notify the item removed by position
         // to perform recycler view delete animations
