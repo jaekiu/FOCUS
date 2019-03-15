@@ -5,7 +5,14 @@
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".FocusActivity">
+    <fragment
+        android:id="@+id/autocomplete_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:name=
+            "com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -90,13 +97,7 @@
         </android.support.constraint.ConstraintLayout>
 
     </FrameLayout>
-    <!--<fragment-->
-        <!--android:id="@+id/autocomplete_fragment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:name=-->
-            <!--"com.google.android.libraries.places.widget.AutocompleteSupportFragment"-->
-        <!--/>-->
+
 
 
 </android.support.constraint.ConstraintLayout>

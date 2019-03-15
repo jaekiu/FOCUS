@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">FOCUS</string>
     <string name="search_hint">Start typing in a location!</string>
+    <string name="google_maps_API_key">AIzaSyAvpSiig4OH-LXYxFyznsaaK3yjhqdZxP0</string>
 </resources>
