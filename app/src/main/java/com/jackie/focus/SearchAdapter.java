@@ -2,11 +2,9 @@ package com.jackie.focus;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
     // Activity-related variables.
@@ -23,13 +20,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     private View _view;
 
     // Represents the purchases to be used for RecyclerView.
-    private ArrayList<Location> _locations;
+    private ArrayList<Locations> _locations;
 
     // SQL-Database variables.
     private LocationsDatabaseHelper _dbHelper;
     private SQLiteDatabase _db;
 
-    public SearchAdapter(Context context, ArrayList<Location> locations, View v) {
+    public SearchAdapter(Context context, ArrayList<Locations> locations, View v) {
         _context = context;
         _view = v;
         _locations = new ArrayList<>(locations);
@@ -44,9 +41,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     /** Adds location L to _LOCATIONS if it is not a duplicate.
      * @param l: Location to be added. */
-    public void addLocation(Location l) {
+    public void addLocation(Locations l) {
         // Checks if location exists already. Prevents adding duplicates.
-        for (Location location : _locations) {
+        for (Locations location : _locations) {
             double lat = location.getLat();
             double lon = location.getLong();
             if (l.getLat() == lat && l.getLong() == lon) {
@@ -94,7 +91,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         }
 
         public void bind(int position) {
-            Location l = _locations.get(position);
+            Locations l = _locations.get(position);
             _locName.setText(l.getName());
             _locAddress.setText(l.getAddress());
             _deleteLoc.setOnClickListener(this);
@@ -112,7 +109,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     /** Handles removing a purchase at POSITION.
      * Removes it from the SQL Database and the RecyclerView. */
     public void removeItem(int position) {
-        Location l = _locations.get(position);
+        Locations l = _locations.get(position);
         _locations.remove(position);
         String whereClause = "placeid=?";
         String[] whereArg = new String[] {String.valueOf(l.getID())};

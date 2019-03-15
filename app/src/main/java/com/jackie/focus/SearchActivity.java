@@ -1,17 +1,17 @@
 package com.jackie.focus;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.GeofencingClient;
@@ -26,19 +26,28 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-public class SearchActivity extends AppCompatActivity {
+/** Allows user to search for FOCUS locations.
+ * @author: Jacqueline Zhang
+ * @date: 03/15/2019 */
+public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
+    /** Represents the api key. */
     private final String apiKey = "AIzaSyAvpSiig4OH-LXYxFyznsaaK3yjhqdZxP0";
-    private ArrayList<Location> _locations = new ArrayList<>();
+
+    /** Represents all the locations that have been chosen as focused. */
+    private ArrayList<Locations> _locations = new ArrayList<>();
+
+    /** View-related variables.*/
     private RecyclerView _rView;
     private SearchAdapter _adapter;
+    private Button _mapBtn;
+
+    /** Geofencing variables. */
     private GeofencingClient _geofencingClient;
     private GeofencingHandler _geofencingHandler;
 
     /** SQL-related variables. */
     private LocationsDatabaseHelper _dbHelper;
     private SQLiteDatabase _db;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +67,11 @@ public class SearchActivity extends AppCompatActivity {
         _locations = new ArrayList<>();
         // Must set adapter after _LOCATIONS is populated.
         retrieveLocations();
-        _geofencingHandler = new GeofencingHandler(this);
         _adapter = new SearchAdapter(this, _locations, findViewById(R.id.mainLayout));
         _rView.setAdapter(_adapter);
-
+        _mapBtn = findViewById(R.id.mapBtn);
+        _mapBtn.setOnClickListener(this);
+        _geofencingHandler = new GeofencingHandler(this);
         _geofencingClient = LocationServices.getGeofencingClient(this);
 
 
@@ -87,7 +97,7 @@ public class SearchActivity extends AppCompatActivity {
                 LatLng latLng = place.getLatLng();
                 double latitude = latLng.latitude;
                 double longitude = latLng.longitude;
-                Location l = new Location(place.getId(), place.getName(), place.getAddress(), latitude, longitude);
+                Locations l = new Locations(place.getId(), place.getName(), place.getAddress(), latitude, longitude);
                 _adapter.addLocation(l);
             }
 
@@ -141,7 +151,7 @@ public class SearchActivity extends AppCompatActivity {
                     cursor.getColumnIndexOrThrow(LocationsDatabase.LocationEntry.COLUMN_LAT));
             String lon = cursor.getString(
                     cursor.getColumnIndexOrThrow(LocationsDatabase.LocationEntry.COLUMN_LONG));
-            Location p = new Location(placeid, name, address, Double.parseDouble(lat), Double.parseDouble(lon));
+            Locations p = new Locations(placeid, name, address, Double.parseDouble(lat), Double.parseDouble(lon));
             _locations.add(p);
         }
         cursor.close();
@@ -164,6 +174,15 @@ public class SearchActivity extends AppCompatActivity {
                         // ...
                     }
                 });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.mapBtn:
+                Log.d("huh", "am i in");
+                startActivity(new Intent(SearchActivity.this, MapActivity.class));
+        }
     }
 //    private void populateLocations() {
 //        _locations.add(new Location("Home", "2520 College Ave.", 192.0, 290.8));

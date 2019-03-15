@@ -1,13 +1,13 @@
 package com.jackie.focus;
 
-public class Location {
+public class Locations {
     private String _id;
     private String _name;
     private String _address;
     private double _lat;
     private double _long;
 
-    public Location(String id, String name, String address, double lat, double lon) {
+    public Locations(String id, String name, String address, double lat, double lon) {
         _id = id;
         _name = name;
         _address = address;

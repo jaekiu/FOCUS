@@ -25,17 +25,17 @@ public class GeofencingHandler {
         return _geofenceList;
     }
 
-    public void populateGeofences(ArrayList<Location> locations) {
-        for (Location l : locations) {
+    public void populateGeofences(ArrayList<Locations> locations) {
+        for (Locations l : locations) {
             addGeofence(l);
         }
     }
 
-    public void addGeofence(Location l) {
+    public void addGeofence(Locations l) {
         _geofenceList.add(createGeofence(l));
     }
 
-    public Geofence createGeofence(Location l) {
+    public Geofence createGeofence(Locations l) {
         return new Geofence.Builder()
                 // Set the request ID of the geofence. This is a string to identify this
                 // geofence.
